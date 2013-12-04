@@ -1,0 +1,45 @@
+﻿-- Table: "Album"
+
+-- DROP TABLE "Album";
+
+CREATE TABLE "Album"
+(
+  "AlbumId" integer NOT NULL,
+  "Title" character varying(160) NOT NULL,
+  "ArtistId" integer NOT NULL,
+  CONSTRAINT "PK_Album" PRIMARY KEY ("AlbumId"),
+  CONSTRAINT "FK_AlbumArtistId" FOREIGN KEY ("ArtistId")
+      REFERENCES "Artist" ("ArtistId") MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE "Album"
+  OWNER TO postgres;
+
+-- Index: "IFK_AlbumArtistId"
+
+-- DROP INDEX "IFK_AlbumArtistId";
+
+CREATE INDEX "IFK_AlbumArtistId"
+  ON "Album"
+  USING btree
+  ("ArtistId");
+
+
+  -- Table: "Artist"
+
+-- DROP TABLE "Artist";
+
+CREATE TABLE "Artist"
+(
+  "ArtistId" integer NOT NULL,
+  "Name" character varying(120),
+  CONSTRAINT "PK_Artist" PRIMARY KEY ("ArtistId")
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE "Artist"
+  OWNER TO postgres;
